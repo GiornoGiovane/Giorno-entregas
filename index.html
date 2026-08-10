@@ -3,10 +3,997 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Giorno Entregas</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #1f2937;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #f59e0b;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #f59e0b;
+        }
+
+        .hero {
+            min-height: 580px;
+            display: flex;
+            align-items: center;
+            padding: 70px 8%;
+            background: linear-gradient(135deg, #111827, #1f2937);
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #f59e0b;
+        }
+
+        .hero p {
+            font-size: 19px;
+            line-height: 1.6;
+            color: #d1d5db;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #f59e0b;
+            color: #111827;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            background: #fbbf24;
+        }
+
+        .section {
+            padding: 80px 8%;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 35px;
+            margin-bottom: 15px;
+            color: #111827;
+        }
+
+        .section-description {
+            max-width: 650px;
+            margin: 0 auto 45px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .steps {
+            max-width: 900px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .step {
+            padding: 25px;
+        }
+
+        .number {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 15px;
+            background: #f59e0b;
+            color: #111827;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* AVALIAÇÕES */
+
+        .reviews-section {
+            background: #e5e7eb;
+        }
+
+        .rating-summary {
+            max-width: 500px;
+            margin: 0 auto 35px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        .average {
+            font-size: 45px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .average-stars {
+            color: #f59e0b;
+            font-size: 30px;
+            margin: 5px 0;
+        }
+
+        .rating-count {
+            color: #6b7280;
+        }
+
+        .review-box {
+            max-width: 650px;
+            margin: 0 auto 45px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: left;
+        }
+
+        .review-box label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .review-box input,
+        .review-box textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 15px;
+        }
+
+        .review-box textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .stars {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .star {
+            font-size: 35px;
+            cursor: pointer;
+            color: #d1d5db;
+            transition: 0.15s;
+        }
+
+        .star.selected {
+            color: #f59e0b;
+        }
+
+        .review-list {
+            max-width: 900px;
+            margin: auto;
+            display: grid;
+            gap: 18px;
+        }
+
+        .review {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            text-align: left;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        .review-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .review-stars {
+            color: #f59e0b;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .review-text {
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        .empty-reviews {
+            color: #6b7280;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: #15803d;
+        }
+
+        .error {
+            color: #dc2626;
+        }
+
+        .cta {
+            background: #f59e0b;
+            padding: 70px 8%;
+            text-align: center;
+            color: #111827;
+        }
+
+        .cta h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            margin-bottom: 25px;
+        }
+
+        .cta .button {
+            background: #111827;
+            color: white;
+        }
+
+        footer {
+            background: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 30px 8%;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            nav a {
+                margin: 0 7px;
+                font-size: 13px;
+            }
+
+            .hero {
+                min-height: 500px;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cards,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 60px 6%;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Giorno Entregas</h1>
-    <p>Seu serviço de entregas.</p>
+
+<header>
+
+    <div class="logo">
+        Giorno<span>Entregas</span>
+    </div>
+
+    <nav>
+        <a href="#inicio">Início</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#avaliacoes">Avaliações</a>
+    </nav>
+
+</header>
+
+
+<section class="hero" id="inicio">
+
+    <div class="hero-content">
+
+        <h1>
+            Sua entrega.<br>
+            <span>Do seu jeito.</span>
+        </h1>
+
+        <p>
+            Entregas rápidas, práticas e confiáveis.
+            A Giorno Entregas conecta você ao destino
+            de forma simples e eficiente.
+        </p>
+
+        <a
+            href="https://wa.me/5541998491575?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20entrega."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="button"
+        >
+            📱 Solicitar pelo WhatsApp
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="servicos">
+
+    <h2>Nossos serviços</h2>
+
+    <p class="section-description">
+        Soluções de entrega para diferentes necessidades,
+        sempre buscando praticidade e segurança.
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">🛵</div>
+            <h3>Entregas rápidas</h3>
+            <p>
+                Para documentos, pequenos objetos,
+                compras e outros itens.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📦</div>
+            <h3>Encomendas</h3>
+            <p>
+                Transporte de encomendas com cuidado
+                até o destino.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏪</div>
+            <h3>Para empresas</h3>
+            <p>
+                Uma solução prática para empresas
+                que precisam realizar entregas.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <h2>Como funciona?</h2>
+
+    <p class="section-description">
+        Fazer uma entrega com a Giorno é simples.
+    </p>
+
+    <div class="steps">
+
+        <div class="step">
+            <div class="number">1</div>
+            <h3>Solicite</h3>
+            <p>
+                Entre em contato e informe os detalhes
+                da sua entrega.
+            </p>
+        </div>
+
+        <div class="step">
+            <div class="number">2</div>
+            <h3>Combinamos</h3>
+            <p>
+                Definimos os detalhes da coleta
+                e do destino.
+            </p>
+        </div>
+
+        <div class="step">
+            <div class="number">3</div>
+            <h3>Entregamos</h3>
+            <p>
+                Seu pedido é levado até o destino
+                combinado.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section reviews-section" id="avaliacoes">
+
+    <h2>⭐ Avaliações dos clientes</h2>
+
+    <p class="section-description">
+        Já utilizou a Giorno Entregas?
+        Deixe sua nota e conte como foi sua experiência.
+    </p>
+
+
+    <div class="rating-summary">
+
+        <div class="average" id="average">
+            0,0
+        </div>
+
+        <div class="average-stars" id="averageStars">
+            ☆☆☆☆☆
+        </div>
+
+        <div class="rating-count" id="ratingCount">
+            Ainda não há avaliações
+        </div>
+
+    </div>
+
+
+    <div class="review-box">
+
+        <label for="name">Seu nome</label>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Digite seu nome"
+            maxlength="40"
+        >
+
+
+        <label>Sua nota</label>
+
+        <div class="stars">
+
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+
+        </div>
+
+
+        <label for="comment">Comentário</label>
+
+        <textarea
+            id="comment"
+            placeholder="Conte como foi sua experiência..."
+            maxlength="300"
+        ></textarea>
+
+
+        <button class="button" id="submitReview">
+            Publicar avaliação
+        </button>
+
+        <div class="message" id="message"></div>
+
+    </div>
+
+
+    <div class="review-list" id="reviewList">
+
+        <p class="empty-reviews">
+            Carregando avaliações...
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="cta">
+
+    <h2>Precisa fazer uma entrega?</h2>
+
+    <p>
+        Fale com a Giorno Entregas pelo WhatsApp.
+    </p>
+
+    <a
+        href="https://wa.me/5541998491575?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20entrega."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="button"
+    >
+        📱 Fazer um pedido
+    </a>
+
+</section>
+
+
+<footer>
+
+    <p>
+        © 2026 <strong>Giorno Entregas</strong>.
+        Todos os direitos reservados.
+    </p>
+
+</footer>
+
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+    /* =====================================================
+       CONFIGURAÇÃO DO SUPABASE
+       ===================================================== */
+
+    const SUPABASE_URL =
+        "https://okiphqqhiutjmgiodiay.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_MjqaMCBr6ND1O4Ak-o1PRQ_JWJXyEI9";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+    /* =====================================================
+       ESTRELAS
+       ===================================================== */
+
+    let selectedRating = 0;
+
+    const stars =
+        document.querySelectorAll(".star");
+
+
+    stars.forEach(star => {
+
+        star.addEventListener("click", () => {
+
+            selectedRating =
+                Number(star.dataset.value);
+
+            stars.forEach(s => {
+
+                if (
+                    Number(s.dataset.value)
+                    <= selectedRating
+                ) {
+                    s.classList.add("selected");
+                } else {
+                    s.classList.remove("selected");
+                }
+
+            });
+
+        });
+
+    });
+
+
+    /* =====================================================
+       PUBLICAR AVALIAÇÃO
+       ===================================================== */
+
+    document
+        .getElementById("submitReview")
+        .addEventListener("click", async () => {
+
+            const name =
+                document
+                    .getElementById("name")
+                    .value
+                    .trim();
+
+            const comment =
+                document
+                    .getElementById("comment")
+                    .value
+                    .trim();
+
+            const message =
+                document.getElementById("message");
+
+
+            message.textContent = "";
+            message.className = "message";
+
+
+            if (!name) {
+                showMessage(
+                    "Digite seu nome.",
+                    "error"
+                );
+                return;
+            }
+
+
+            if (selectedRating === 0) {
+                showMessage(
+                    "Escolha uma nota de 1 a 5 estrelas.",
+                    "error"
+                );
+                return;
+            }
+
+
+            if (!comment) {
+                showMessage(
+                    "Escreva um comentário.",
+                    "error"
+                );
+                return;
+            }
+
+
+            const button =
+                document.getElementById(
+                    "submitReview"
+                );
+
+            button.disabled = true;
+            button.textContent = "Publicando...";
+
+
+            const {
+                error
+            } = await supabaseClient
+                .from("avaliacoes")
+                .insert([
+                    {
+                        nome: name,
+                        nota: selectedRating,
+                        comentario: comment
+                    }
+                ]);
+
+
+            if (error) {
+
+                console.error(error);
+
+                showMessage(
+                    "Não foi possível publicar. Tente novamente.",
+                    "error"
+                );
+
+            } else {
+
+                document.getElementById("name").value = "";
+                document.getElementById("comment").value = "";
+
+                selectedRating = 0;
+
+                stars.forEach(s =>
+                    s.classList.remove("selected")
+                );
+
+                showMessage(
+                    "Avaliação publicada com sucesso! ⭐",
+                    "success"
+                );
+
+                await loadReviews();
+
+            }
+
+
+            button.disabled = false;
+            button.textContent = "Publicar avaliação";
+
+        });
+
+
+    /* =====================================================
+       CARREGAR AVALIAÇÕES
+       ===================================================== */
+
+    async function loadReviews() {
+
+        const list =
+            document.getElementById("reviewList");
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("avaliacoes")
+            .select("id, nome, nota, comentario, criado_em")
+            .order("criado_em", {
+                ascending: false
+            });
+
+
+        if (error) {
+
+            console.error(error);
+
+            list.innerHTML = `
+                <p class="empty-reviews">
+                    Não foi possível carregar as avaliações.
+                </p>
+            `;
+
+            return;
+
+        }
+
+
+        updateSummary(data);
+
+
+        if (!data || data.length === 0) {
+
+            list.innerHTML = `
+                <p class="empty-reviews">
+                    Ainda não há avaliações. Seja o primeiro!
+                </p>
+            `;
+
+            return;
+
+        }
+
+
+        list.innerHTML = "";
+
+
+        data.forEach(review => {
+
+            const div =
+                document.createElement("div");
+
+            div.className = "review";
+
+
+            const name =
+                escapeHTML(review.nome);
+
+            const comment =
+                escapeHTML(review.comentario);
+
+
+            const starsText =
+                "★".repeat(review.nota) +
+                "☆".repeat(5 - review.nota);
+
+
+            div.innerHTML = `
+
+                <div class="review-name">
+                    ${name}
+                </div>
+
+                <div class="review-stars">
+                    ${starsText}
+                </div>
+
+                <div class="review-text">
+                    ${comment}
+                </div>
+
+            `;
+
+
+            list.appendChild(div);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       MÉDIA
+       ===================================================== */
+
+    function updateSummary(reviews) {
+
+        const average =
+            document.getElementById("average");
+
+        const averageStars =
+            document.getElementById("averageStars");
+
+        const count =
+            document.getElementById("ratingCount");
+
+
+        if (!reviews || reviews.length === 0) {
+
+            average.textContent = "0,0";
+
+            averageStars.textContent =
+                "☆☆☆☆☆";
+
+            count.textContent =
+                "Ainda não há avaliações";
+
+            return;
+
+        }
+
+
+        const total =
+            reviews.reduce(
+                (sum, review) =>
+                    sum + review.nota,
+                0
+            );
+
+
+        const avg =
+            total / reviews.length;
+
+
+        average.textContent =
+            avg.toFixed(1).replace(".", ",");
+
+
+        const rounded =
+            Math.round(avg);
+
+
+        averageStars.textContent =
+            "★".repeat(rounded) +
+            "☆".repeat(5 - rounded);
+
+
+        count.textContent =
+            reviews.length === 1
+                ? "1 avaliação"
+                : `${reviews.length} avaliações`;
+
+    }
+
+
+    /* =====================================================
+       SEGURANÇA
+       ===================================================== */
+
+    function escapeHTML(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent = text;
+
+        return div.innerHTML;
+
+    }
+
+
+    /* =====================================================
+       MENSAGENS
+       ===================================================== */
+
+    function showMessage(text, type) {
+
+        const message =
+            document.getElementById("message");
+
+        message.textContent = text;
+
+        message.className =
+            "message " + type;
+
+    }
+
+
+    /* =====================================================
+       INICIAR
+       ===================================================== */
+
+    loadReviews();
+
+</script>
+
 </body>
 </html>
